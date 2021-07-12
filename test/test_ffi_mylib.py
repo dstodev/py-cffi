@@ -16,8 +16,13 @@ class TestFFIMyLib(TestCase):
 		self.mylib.print_cstring(b'hello too')
 
 	def test_fill_string(self):
-		ffi = FFI()
 		str_len = 10
-		string = ffi.new('char[]', str_len + 1)
+		string = self.mylib.ffi.new('char[]', str_len + 1)
 		self.mylib.fill_string(string, str_len, b'c')
-		self.assertEqual(b'cccccccccc', ffi.string(string))
+		self.assertEqual(b'cccccccccc', self.mylib.ffi.string(string))
+
+	def test_MyType_instantiable(self):
+		mt = self.mylib.ffi.new('MyType*')
+		self.assertEqual(0, mt.value)
+		mt.value = 1
+		self.assertEqual(1, mt.value)

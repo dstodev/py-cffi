@@ -18,3 +18,10 @@ TEST(MyLib, fill_string) {
 	fill_string(str, str_len, 'c');
 	ASSERT_STREQ("cccccccccc", str);
 }
+
+TEST(MyLib, MyType_instantiable) {
+	MyType mt{};
+	ASSERT_EQ(0, mt.value);
+	mt.value = 1;
+	ASSERT_EQ(1, mt.value);
+}

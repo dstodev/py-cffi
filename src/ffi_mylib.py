@@ -10,10 +10,14 @@ class FFIMyLib:
 	def __init__(self):
 		ffi = cffi.FFI()
 		ffi.cdef("""
+			typedef struct {
+				int value;
+			} MyType;
 			void print_hello();
 			void print_cstring(const char *str);
 			void fill_string(char *str, size_t size, char fill);
 		""")
+		self.ffi = ffi
 		self.lib = ffi.dlopen(str(LIB_PATH))
 
 	def __getattr__(self, item):
