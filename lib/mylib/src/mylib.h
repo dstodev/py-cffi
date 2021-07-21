@@ -12,7 +12,11 @@ typedef struct {
 
 void print_hello();
 void print_cstring(const char *str);
+
 void fill_string(char *str, size_t size, char fill);
+
+char* get_cstring(const char* str);
+void free_cstring(char** str);
 
 }
 

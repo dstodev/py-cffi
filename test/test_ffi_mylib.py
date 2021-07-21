@@ -1,5 +1,4 @@
 from unittest import TestCase
-from cffi import FFI
 
 from src.ffi_mylib import FFIMyLib
 
@@ -26,3 +25,11 @@ class TestFFIMyLib(TestCase):
 		self.assertEqual(0, mt.value)
 		mt.value = 1
 		self.assertEqual(1, mt.value)
+
+	def test_get_cstring(self):
+		c_str = self.mylib.get_cstring(b'test string')
+		py_str = self.mylib.ffi.string(c_str)
+		c_str_ref = self.mylib.ffi.new('char*[1]', init=(c_str,))
+		self.mylib.free_cstring(c_str_ref)
+		self.assertEqual(self.mylib.ffi.NULL, c_str_ref[0])  # c_str is no longer valid, but c_str_ref dereference is.
+		self.assertEqual(b'test string', py_str)

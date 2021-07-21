@@ -25,3 +25,10 @@ TEST(MyLib, MyType_instantiable) {
 	mt.value = 1;
 	ASSERT_EQ(1, mt.value);
 }
+
+TEST(MyLib, get_cstring) {
+	char* str = get_cstring("copy this");
+	ASSERT_STREQ("copy this", str);
+	free_cstring(&str);
+	ASSERT_EQ(nullptr, str);
+}

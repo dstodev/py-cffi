@@ -1,4 +1,4 @@
-add_library(mylib SHARED
+add_library(mylib
 	mylib.cxx
 	mylib.h
 )
